@@ -136,35 +136,6 @@ bool protocol_version_31402::handle_receive_version(const code& ec,
 
     const auto& settings = network_.network_settings();
 
-    if (settings.protocol_minimum < version::level::minimum)
-    {
-        LOG_ERROR(LOG_NETWORK)
-            << "Invalid protocol version configuration, minimum below ("
-            << version::level::minimum << ").";
-        set_event(error::channel_stopped);
-        return false;
-    }
-
-    if (settings.protocol_maximum > version::level::maximum)
-    {
-        LOG_ERROR(LOG_NETWORK)
-            << "Invalid protocol version configuration, maximum above ("
-            << version::level::maximum << ").";
-        set_event(error::channel_stopped);
-        return false;
-    }
-
-    if (settings.protocol_minimum > settings.protocol_maximum)
-    {
-        LOG_ERROR(LOG_NETWORK)
-            << "Invalid protocol version configuration, "
-            << "minimum exceeds maximum.";
-        set_event(error::channel_stopped);
-        return false;
-    }
-
-    //-------------------------------------------------------------------------
-
     if (!sufficient_peer(message))
     {
         set_event(error::channel_stopped);
