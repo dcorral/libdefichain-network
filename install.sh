@@ -52,7 +52,7 @@ fi
 
 # The default build directory.
 #------------------------------------------------------------------------------
-BUILD_DIR="build-libbitcoin-network"
+BUILD_DIR="build-libdefichain-network"
 
 PRESUMED_CI_PROJECT_PATH=$(pwd)
 
@@ -778,12 +778,12 @@ build_all()
     create_from_github libbitcoin libbitcoin-system version3 "yes"
     build_from_github libbitcoin-system "$PARALLEL" false "yes" "${BITCOIN_SYSTEM_OPTIONS[@]}" "$@"
     if [[ ! ($CI == true) ]]; then
-        create_from_github libbitcoin libbitcoin-network version3 "yes"
-        build_from_github libbitcoin-network "$PARALLEL" true "yes" "${BITCOIN_NETWORK_OPTIONS[@]}" "$@"
+        create_from_github dcorral libdefichain-network version3 "yes"
+        build_from_github libdefichain-network "$PARALLEL" true "yes" "${BITCOIN_NETWORK_OPTIONS[@]}" "$@"
     else
         push_directory "$PRESUMED_CI_PROJECT_PATH"
         push_directory ".."
-        build_from_github libbitcoin-network "$PARALLEL" true "yes" "${BITCOIN_NETWORK_OPTIONS[@]}" "$@"
+        build_from_github libdefichain-network "$PARALLEL" true "yes" "${BITCOIN_NETWORK_OPTIONS[@]}" "$@"
         pop_directory
         pop_directory
     fi
